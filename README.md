@@ -1,98 +1,151 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 📦 Feedback GraphQL API – NestJS
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Système de feedback pour produits numériques développé avec NestJS et GraphQL.  
+Il permet de gérer les entités **Utilisateur (User)**, **Produit (Product)** et **Feedback**, avec des opérations complètes de création, lecture, mise à jour et suppression.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
+## 🚀 Démarrage rapide
 
 ```bash
-$ npm install
-```
+npm install
+npm run start:dev
 
-## Compile and run the project
 
-```bash
-# development
-$ npm run start
+Accès GraphQL : http://localhost:3000/graphql
 
-# watch mode
-$ npm run start:dev
+📌 Schéma GraphQL
+🎯 Entités principales
 
-# production mode
-$ npm run start:prod
-```
+type User {
+  id: Int!
+  name: String!
+  email: String!
+}
 
-## Run tests
+type Product {
+  id: Int!
+  name: String!
+  description: String!
+}
 
-```bash
-# unit tests
-$ npm run test
+type Feedback {
+  id: Int!
+  productName: String!
+  rating: Int!
+  comment: String!
+  user: String!
+}
 
-# e2e tests
-$ npm run test:e2e
+📬 Opérations disponibles
+✅ Utilisateur (User)
+Ajouter un utilisateur
 
-# test coverage
-$ npm run test:cov
-```
+mutation {
+  addUser(input: {
+    name: "Alice",
+    email: "alice@email.com"
+  }) {
+    id name email
+  }
+}
 
-## Deployment
+Afficher tous les utilisateurs
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+query {
+  getAllUsers {
+    id name email
+  }
+}
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+Mettre à jour un utilisateur
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+mutation {
+  updateUser(input: {
+    id: 1,
+    name: "Alice Modifiée"
+    email: "newalice@email.com"
+  }) {
+    id name email
+  }
+}
 
-## Resources
 
-Check out a few resources that may come in handy when working with NestJS:
+Supprimer un utilisateur
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+mutation {
+  deleteUser(id: 1)
+}
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+✅ Produit (Product)
+Ajouter un produit
 
-## Stay in touch
+mutation {
+  addProduct(input: {
+    name: "Produit X",
+    description: "Outil SaaS puissant"
+  }) {
+    id name description
+  }
+}
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Afficher tous les produits
 
-## License
+query {
+  getAllProducts {
+    id name description
+  }
+}
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Mettre à jour un produit
+
+mutation {
+  updateProduct(input: {
+    id: 1,
+    name: "Produit Y",
+    description: "Version mise à jour"
+  }) {
+    id name description
+  }
+}
+
+Supprimer un produit
+
+mutation {
+  deleteProduct(id: 1)
+}
+
+✅ Feedback (Feedback)
+Ajouter un feedback
+
+mutation {
+  addFeedback(input: {
+    productName: "Produit X"
+    rating: 5
+    comment: "Très utile !"
+    user: "Alice"
+  }) {
+    id productName rating comment user
+  }
+}
+
+Afficher tous les feedbacks
+
+query {
+  getAllFeedbacks {
+    id productName rating comment user
+  }
+}
+
+Supprimer un feedback
+
+mutation {
+  deleteFeedback(id: 1)
+}
+
+🛠 Tech Stack
+
+NestJS
+GraphQL (Apollo)
