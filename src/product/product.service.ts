@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Product } from './product.entity';
 import { CreateProductInput } from './dto/create-product.input';
+import { UpdateProductInput } from './dto/update-product.input';
 
 @Injectable()
 export class ProductService {
@@ -23,4 +24,12 @@ export class ProductService {
     this.products.splice(index, 1);
     return true;
   }
+
+  update(input: UpdateProductInput): Product | null {
+  const product = this.products.find(p => p.id === input.id);
+  if (!product) return null;
+  Object.assign(product, input);
+  return product;
+}
+
 }

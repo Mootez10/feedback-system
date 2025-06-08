@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from './user.entity';
 import { CreateUserInput } from './dto/create-user.input';
+import { UpdateUserInput } from './dto/update-user.input';
 
 @Injectable()
 export class UserService {
@@ -23,4 +24,12 @@ export class UserService {
     this.users.splice(index, 1);
     return true;
   }
+
+  update(input: UpdateUserInput): User | null {
+  const user = this.users.find(u => u.id === input.id);
+  if (!user) return null;
+  Object.assign(user, input);
+  return user;
+}
+
 }

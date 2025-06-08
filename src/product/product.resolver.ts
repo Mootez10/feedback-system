@@ -3,6 +3,7 @@ import { ProductService } from './product.service';
 import { Product } from './product.entity';
 import { CreateProductInput } from './dto/create-product.input';
 import { GraphQLBoolean } from 'graphql';
+import { UpdateProductInput } from './dto/update-product.input';
 
 @Resolver(() => Product)
 export class ProductResolver {
@@ -22,4 +23,9 @@ export class ProductResolver {
   deleteProduct(@Args('id', { type: () => Int }) id: number) {
     return this.productService.delete(id);
   }
+
+  @Mutation(() => Product, { nullable: true })
+updateProduct(@Args('input') input: UpdateProductInput) {
+  return this.productService.update(input);
+}
 }
